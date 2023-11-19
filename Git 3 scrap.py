@@ -33,6 +33,9 @@ def withdrawal(base, account_id, withdrawal_input):
         withdrawal_amount = "You've entered an incorrect value, try again."
         return withdrawal_amount
     withdrawal_amount = float(withdrawal_input)
+    if base[account_id] - withdrawal_amount < 0:
+        withdrawal_amount = "You're low on your funds!"
+        return withdrawal_amount
     base[account_id] -= withdrawal_amount
     return withdrawal_amount
 
@@ -77,9 +80,11 @@ def main():
                       f"Now you have: {accounts[input_id]} $.")
             elif option == "-w":
                 withdrawal_input = input("How much cash (XXXX.XX $) would you like to withdraw?: ")
-                withdrawal(accounts, input_id, withdrawal_input)
-                print(f"Balance of account {input_id} has been updated (-{withdrawal_input} $.\n"
-                      f"Now you have: {accounts[input_id]} $.")
+                if withdrawal(accounts, input_id, withdrawal_input) == "You're low on your funds!":
+                    print("You're low on your funds!")
+                else:
+                    print(f"Balance of account {input_id} has been updated (-{withdrawal_input} $.\n"
+                          f"Now you have: {accounts[input_id]} $.")
             elif option == "-s":
                 print(account_summary(accounts, input_id))
             elif option == "-e":
