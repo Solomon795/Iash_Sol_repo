@@ -45,6 +45,7 @@ def account_summary(base, account_id):
 
 
 def main():
+    global accounts
     while True:
         input_id = input("Greetings!\nEnter your account ID number in format XXXX.\n"
                          "If entered ID doesn't exist, it will be created.\n"
