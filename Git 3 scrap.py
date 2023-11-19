@@ -19,9 +19,11 @@ def deposit(base, account_id, deposit_input):
     """Deposit: A function to deposit an amount to a specific account,
     updating the balance."""
     if not all(char.isdigit() or char == '.' for char in deposit_input):
-        return "You've entered an incorrect value, try again."
-    base[account_id] += float(deposit_input)
-    return deposit_input
+        deposit_amount = "You've entered an incorrect value, try again."
+        return deposit_amount
+    deposit_amount = float(deposit_input)
+    base[account_id] += deposit_amount
+    return deposit_amount
 
 
 def withdrawal(base, account_id, withdrawal_input):
