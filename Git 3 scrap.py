@@ -92,6 +92,7 @@ def main():
                 main()
             else:
                 break
+            break
         else:
             account_creation(accounts, input_id)
             print(f"Account ID {input_id} created!"
