@@ -93,3 +93,13 @@ def main():
             print(f"Account ID {input_id} created!"
                   f"You have 0$ on your balance right now."
                   f"You're now returned to main menu")
+
+
+if __name__ == "__main__":
+    assert account_creation({}, "1111") == {"1111": 0.00}
+    assert check_balance({"0001": 50, "0002": 1000}, "0001") == 50.0
+    assert deposit({"0001": 50, "0002": 1000}, "0002", "25.50") == 25.50
+    assert withdrawal({"0001": 50, "0002": 1000}, "0002", "800.80") == 800.80
+    assert account_summary({"0001": 50, "0002": 1000}, "0002") == "Your account ID: 0002 Your current balance: 1000 $"
+    print("All tests are passed!")
+    main()
