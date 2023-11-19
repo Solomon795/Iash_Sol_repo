@@ -38,3 +38,58 @@ def account_summary(base, account_id):
     including the account ID and current balance"""
     return (f"Your account ID: {account_id} "
             f"Your current balance: {base[account_id]} $")
+
+
+def main():
+    while True:
+        input_id = input("Greetings!\nEnter your account ID number in format XXXX.\n"
+                         "If entered ID doesn't exist, it will be created.\n"
+                         "To exit the program, type '-e': \n")
+        if not input_id.isnumeric() and input_id != '-e':
+            print("You're allowed to enter only 4 digits!")
+        elif input_id == '-e':
+            break
+        elif not len(input_id) == 4:
+            print("You're allowed to enter only 4 digits!")
+        elif input_id in accounts:
+            option = input("Your account is in our base! Choose what you'd like to do\n"
+                           "-c for checking balance\n"
+                           "-d for making deposit\n"
+                           "-w for withdrawing cash\n"
+                           "-s for account summary\n"
+                           "-e for exiting\n")
+
+            if option == "-c":
+                print(f"Your current balance now is:\n {check_balance(accounts, input_id)} $")
+            elif option == "-d":
+                deposit_input = input("How much (XXXX.XX $) would you like to deposit?: ")
+                if deposit(accounts, input_id, deposit_input) == ("You've entered an incorrect value, "
+                                                                  "try again."):
+                    print("You've entered an incorrect value, try again.")
+                    break
+                print(f"Balance of account {input_id} has been updated "
+                      f"(+{deposit_input}$).\n"
+                      f"Now you have: {accounts[input_id]} $.")
+            elif option == "-w":
+                withdrawal_input = input("How much cash (XXXX.XX $) would you like to withdraw?: ")
+                withdrawal(accounts, input_id, withdrawal_input)
+
+                print(f"Balance of account {input_id} has been updated (-{withdrawal_input} $.\n"
+                      f"Now you have: {accounts[input_id]} $.")
+            elif option == "-s":
+                print(account_summary(accounts, input_id))
+            elif option == "-e":
+                break
+            else:
+                print("You did not pick an existing function, try again.")
+
+            final_option = input("Is there something else you'd like to do ('y'/'any other key')? ")
+            if final_option.lower() == "y":
+                main()
+            else:
+                break
+        else:
+            account_creation(accounts, input_id)
+            print(f"Account ID {input_id} created!"
+                  f"You have 0$ on your balance right now."
+                  f"You're now returned to main menu")
