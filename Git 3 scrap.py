@@ -30,9 +30,11 @@ def withdrawal(base, account_id, withdrawal_input):
     """Withdrawal: A function to withdraw an amount from a specific account,
     updating the balance if sufficient funds exist."""
     if not all(char.isdigit() or char == '.' for char in withdrawal_input):
-        return "You've entered an incorrect value, try again."
-    base[account_id] -= float(withdrawal_input)
-    return withdrawal_input
+        withdrawal_amount = "You've entered an incorrect value, try again."
+        return withdrawal_amount
+    withdrawal_amount = float(withdrawal_input)
+    base[account_id] -= withdrawal_amount
+    return withdrawal_amount
 
 
 def account_summary(base, account_id):
@@ -75,7 +77,6 @@ def main():
             elif option == "-w":
                 withdrawal_input = input("How much cash (XXXX.XX $) would you like to withdraw?: ")
                 withdrawal(accounts, input_id, withdrawal_input)
-
                 print(f"Balance of account {input_id} has been updated (-{withdrawal_input} $.\n"
                       f"Now you have: {accounts[input_id]} $.")
             elif option == "-s":
